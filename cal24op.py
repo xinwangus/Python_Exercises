@@ -1,11 +1,13 @@
 
 class Cal24op():
-    def __init__(self, l, r, op):
+    # if all 3 params are given, l and r are objects
+    # if only 1 param is given, l is a number
+    def __init__(self, l, r=0, op="$"):
         self.l = l
         self.r = r
         self.op = op
         self.result = 0
-        self.print_result = ""
+        self.print_result = "(" + str(l) + ")"
         self.valid = True
 
     def cal(self):
@@ -18,25 +20,25 @@ class Cal24op():
             self.result = self.l
             self.print_result = "(" + str(self.l) + ")"
         elif self.op == "+":
-             self.result = self.l + self.r
-             self.print_result = "(" + str(self.l) + " + " + str(self.r) + ")"
+             self.result = self.l.result + self.r.result
+             self.print_result = "(" + self.l.print_result + " + " + self.r.print_result + ")"
         elif self.op == "*":
-             self.result = self.l * self.r
-             self.print_result = "(" + str(self.l) + " * " + str(self.r) + ")"
+             self.result = self.l.result * self.r.result
+             self.print_result = "(" + self.l.print_result + " * " + self.r.print_result + ")"
         elif self.op == "-":
-             if self.l > self.r:
-                 self.result = self.l - self.r
-                 self.print_result = "(" + str(self.l) + " - " + str(self.r) + ")"
+             if self.l.result > self.r.result:
+                 self.result = self.l.result - self.r.result
+                 self.print_result = "(" + self.l.print_result + " - " + self.r.print_result + ")"
              else:
-                 self.result = self.r - self.l
-                 self.print_result = "(" + str(self.r) + " - " + str(self.l) + ")"
+                 self.result = self.r.result - self.l.result
+                 self.print_result = "(" + self.r.print_result + " - " + self.l.print_result + ")"
         elif self.op == "/":
-                 if self.l >= self.r and self.l % self.r == 0:
-                     self.result = int(self.l / self.r)
-                     self.print_result = "(" + str(self.l) + " / " + str(self.r) + ")"
-                 elif self.r >= self.l and self.r % self.l == 0:
-                     self.result = int(self.r / self.l)
-                     self.print_result = "(" + str(self.r) + " / " + str(self.l) + ")"
+                 if self.l.result >= self.r.result and self.r.result != 0 and self.l.result % self.r.result == 0:
+                     self.result = int(self.l.result / self.r.result)
+                     self.print_result = "(" + self.l.print_result + " / " + self.r.print_result + ")"
+                 elif self.r.result >= self.l.result and self.l.result != 0 and self.r.result % self.l.result == 0:
+                     self.result = int(self.r.result / self.l.result)
+                     self.print_result = "(" + self.r.print_result + " / " + self.l.print_result + ")"
                  else:
                      self.valid = False
         else:

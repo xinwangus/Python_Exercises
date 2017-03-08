@@ -1,65 +1,123 @@
+#!/usr/bin/env python
 import cal24op
 
 # Given 2 Cal24op objects, see if they can make out 24
 def two_two_1 (op1, op2):
-    op1.cal()
-    op2.cal()
     if (op1.valid and op2.valid) == False:
         return 0
     for s in ["+","-", "*", "/"]:
-        op3 = cal24op.Cal24op(op1.result, op2.result, s)
+        op3 = cal24op.Cal24op(op1, op2, s)
         op3.cal()
         if op3.valid:
           if (op3.result == 24):
-            print (op1.print_result + s + op2.print_result + " = 24 \n")
+            print (op3.print_result + " = 24 \n")
             return 24
     return 0
 
-def two_two_2 (numbers):
-    op1list = []
-    op2list = []
+def two_two_2 (op1, op2, op3, op4):
+    opllist = []
+    oprlist = []
     for s in ["+","-", "*", "/"]:
-        op1 = cal24op.Cal24op(numbers[0], numbers[1], s)
-        op1list.append(op1)
-        op2 = cal24op.Cal24op(numbers[2], numbers[3], s)
-        op2list.append(op2)
-    for op1 in op1list:
-        for op2 in op2list:
-            if two_two_1(op1, op2) == 24:
-                return 1
-    return 0
-
-# This is not correct!
-def two_one_one (numbers):
-    op1list = []
-    op2list = []
-    for s in ["+","-", "*", "/"]:
-        op1 = cal24op.Cal24op(numbers[0], numbers[1], s)
-        op1list.append(op1)
-        op2 = cal24op.Cal24op(numbers[2], numbers[3], s)
-        op2list.append(op2)
-    for op1 in op1list:
-        for op2 in op2list:
-            if two_two_1(op1, op2) == 24:
+        opl = cal24op.Cal24op(op1, op2, s)
+        opllist.append(opl)
+        opl.cal()
+        opr = cal24op.Cal24op(op3, op4, s)
+        opr.cal()
+        oprlist.append(opr)
+    for opl in opllist:
+        for opr in oprlist:
+            if two_two_1(opl, opr) == 24:
                 return 1
     return 0
 
 
-def two_two_methods (numbers):
-    print(numbers)
-    if two_two_2(numbers) == 1:
-        return
+def two_two_methods (op1, op2, op3, op4):
+    if two_two_2(op1, op2, op3, op4) == 1:
+        return 1  
+    if two_two_2(op1, op3, op2, op4) == 1:
+        return 1  
+    if two_two_2(op1, op4, op2, op3) == 1:
+        return 1
+    return 0
 
-    tmp = numbers[1]
-    numbers[1] = numbers[2]
-    numbers[2] = tmp
-    print(numbers)
-    if two_two_2(numbers) == 1:
-        return
+def two_one_one (op1, op2, op3, op4):
+    opllist = []
+    oprlist = []
+    for s in ["+","-", "*", "/"]:
+        opl = cal24op.Cal24op(op1, op2, s)
+        opllist.append(opl)
+        opl.cal()
+        
+    for opl in opllist:
+        for s in ["+","-", "*", "/"]:
+            opr = cal24op.Cal24op(opl, op3, s)
+            oprlist.append(opr)
+            opr.cal()
+            
+    for opr in oprlist:
+            if two_two_1(opr, op4) == 24:
+                return 1
+    return 0
+
+
+def two_one_one_methods (op1, op2, op3, op4):
+    if two_one_one(op1, op2, op3, op4) == 1:
+        return 1  
+    if two_one_one(op1, op3, op2, op4) == 1:
+        return 1  
+    if two_one_one(op2, op3, op1, op4) == 1:
+        return 1
     
-    tmp = numbers[3]
-    numbers[3] = numbers[1]
-    numbers[1] = tmp
-    print(numbers)
-    if two_two_2(numbers) == 1:
-        return
+    if two_one_one(op1, op2, op4, op3) == 1:
+        return 1
+    if two_one_one(op1, op4, op2, op3) == 1:
+        return 1
+    if two_one_one(op2, op4, op1, op3) == 1:
+        return 1
+
+    if two_one_one(op1, op3, op4, op2) == 1:
+        return 1
+    if two_one_one(op1, op4, op3, op2) == 1:
+        return 1
+    if two_one_one(op3, op4, op1, op2) == 1:
+        return 1
+
+    if two_one_one(op2, op3, op4, op1) == 1:
+        return 1
+    if two_one_one(op2, op4, op3, op1) == 1:
+        return 1
+    if two_one_one(op3, op4, op2, op1) == 1:
+        return 1
+    return 0
+
+    
+    
+
+n1str = input("First Number: ")
+n1 = int(n1str)
+
+n2str = input("Second Number: ")
+n2 = int(n2str)
+
+n3str = input("Third Number: ")
+n3 = int(n3str)
+
+n4str = input("Forth Number: ")
+n4 = int(n4str)
+
+n1o = cal24op.Cal24op(n1)
+n1o.cal()
+
+n2o = cal24op.Cal24op(n2)
+n2o.cal()
+
+n3o = cal24op.Cal24op(n3)
+n3o.cal()
+
+n4o = cal24op.Cal24op(n4)
+n4o.cal()
+
+if two_two_methods (n1o, n2o, n3o, n4o) == 0:
+    two_one_one_methods (n1o, n2o, n3o, n4o) 
+
+
