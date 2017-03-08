@@ -1,5 +1,6 @@
 import unittest
 import cal24op
+from cal24 import *
 
 class Cal24opTest(unittest.TestCase):
     def test_cal24_op_class(self):
@@ -24,5 +25,8 @@ class Cal24opTest(unittest.TestCase):
         c7 = cal24op.Cal24op(0, 0, "/")
         c7.cal()
         self.assertEqual(c7.valid, False)
+
+    def test_cal24_op_functions(self):
+        two_two_methods([3, 1, 2, 4])
 
 unittest.main()

@@ -9,7 +9,15 @@ class Cal24op():
         self.valid = True
 
     def cal(self):
-        if self.op == "+":
+        if self.l == 0 and self.r == 0:
+            self.valid = False
+        elif self.l == 0:
+            self.result = self.r
+            self.print_result = "(" + str(self.r) + ")"
+        elif self.r == 0:
+            self.result = self.l
+            self.print_result = "(" + str(self.l) + ")"
+        elif self.op == "+":
              self.result = self.l + self.r
              self.print_result = "(" + str(self.l) + " + " + str(self.r) + ")"
         elif self.op == "*":
@@ -23,15 +31,6 @@ class Cal24op():
                  self.result = self.r - self.l
                  self.print_result = "(" + str(self.r) + " - " + str(self.l) + ")"
         elif self.op == "/":
-             if self.l == 0 and self.r == 0:
-                 self.valid = False
-             elif self.l == 0:
-                 self.result = 0
-                 self.print_result = "(" + str(self.l) + " / " + str(self.r) + ")"
-             elif self.r == 0:
-                 self.result = 0
-                 self.print_result = "(" + str(self.r) + " / " + str(self.l) + ")"
-             else:
                  if self.l >= self.r and self.l % self.r == 0:
                      self.result = int(self.l / self.r)
                      self.print_result = "(" + str(self.l) + " / " + str(self.r) + ")"
@@ -42,7 +41,5 @@ class Cal24op():
                      self.valid = False
         else:
             self.valid = False
-        #print (str(self.valid) + "\n")
-        #if self.valid:
-        #    print (self.print_result + " = " + str(self.result) + "\n")
+       
 
