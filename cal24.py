@@ -7,7 +7,6 @@ def two_two_1 (op1, op2):
         return 0
     for s in ["+","-", "*", "/"]:
         op3 = cal24op.Cal24op(op1, op2, s)
-        op3.cal()
         if op3.valid:
           if (op3.result == 24):
             print (op3.print_result + " = 24 \n")
@@ -20,9 +19,7 @@ def two_two_2 (op1, op2, op3, op4):
     for s in ["+","-", "*", "/"]:
         opl = cal24op.Cal24op(op1, op2, s)
         opllist.append(opl)
-        opl.cal()
         opr = cal24op.Cal24op(op3, op4, s)
-        opr.cal()
         oprlist.append(opr)
     for opl in opllist:
         for opr in oprlist:
@@ -46,13 +43,11 @@ def two_one_one (op1, op2, op3, op4):
     for s in ["+","-", "*", "/"]:
         opl = cal24op.Cal24op(op1, op2, s)
         opllist.append(opl)
-        opl.cal()
         
     for opl in opllist:
         for s in ["+","-", "*", "/"]:
             opr = cal24op.Cal24op(opl, op3, s)
             oprlist.append(opr)
-            opr.cal()
             
     for opr in oprlist:
             if two_two_1(opr, op4) == 24:
@@ -106,16 +101,12 @@ n4str = input("Forth Number: ")
 n4 = int(n4str)
 
 n1o = cal24op.Cal24op(n1)
-n1o.cal()
 
 n2o = cal24op.Cal24op(n2)
-n2o.cal()
 
 n3o = cal24op.Cal24op(n3)
-n3o.cal()
 
 n4o = cal24op.Cal24op(n4)
-n4o.cal()
 
 if two_two_methods (n1o, n2o, n3o, n4o) == 0:
     two_one_one_methods (n1o, n2o, n3o, n4o) 

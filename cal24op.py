@@ -9,6 +9,7 @@ class Cal24op():
         self.result = 0
         self.print_result = "(" + str(l) + ")"
         self.valid = True
+        self.cal()
 
     def cal(self):
         if self.l == 0 and self.r == 0:
