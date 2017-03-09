@@ -55,33 +55,30 @@ def two_one_one (op1, op2, op3, op4):
 
 
 def two_one_one_methods (op1, op2, op3, op4):
-    if two_one_one(op1, op2, op3, op4) == 1:
+    if two_one_one(op1, op2, op3, op4) == 1 or \
+       two_one_one(op1, op2, op4, op3) == 1:
         return 1  
-    if two_one_one(op1, op3, op2, op4) == 1:
+
+    if two_one_one(op1, op3, op2, op4) == 1 or \
+       two_one_one(op1, op3, op4, op2) == 1:
         return 1  
-    if two_one_one(op2, op3, op1, op4) == 1:
+
+    if two_one_one(op1, op4, op2, op3) == 1 or \
+       two_one_one(op1, op4, op3, op2) == 1:
+        return 1
+
+    if two_one_one(op2, op3, op1, op4) == 1 or \
+       two_one_one(op2, op3, op4, op1) == 1:
         return 1
     
-    if two_one_one(op1, op2, op4, op3) == 1:
-        return 1
-    if two_one_one(op1, op4, op2, op3) == 1:
-        return 1
-    if two_one_one(op2, op4, op1, op3) == 1:
+    if two_one_one(op2, op4, op1, op3) == 1 or \
+       two_one_one(op2, op4, op3, op1) == 1:
         return 1
 
-    if two_one_one(op1, op3, op4, op2) == 1:
-        return 1
-    if two_one_one(op1, op4, op3, op2) == 1:
-        return 1
-    if two_one_one(op3, op4, op1, op2) == 1:
+    if two_one_one(op3, op4, op1, op2) == 1 or \
+       two_one_one(op3, op4, op2, op1) == 1:
         return 1
 
-    if two_one_one(op2, op3, op4, op1) == 1:
-        return 1
-    if two_one_one(op2, op4, op3, op1) == 1:
-        return 1
-    if two_one_one(op3, op4, op2, op1) == 1:
-        return 1
     return 0
     
 while True:
