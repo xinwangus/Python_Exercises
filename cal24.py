@@ -3,16 +3,18 @@ import cal24op
 
 # Given 2 Cal24op objects, see if they can make out 24
 def can_make_24 (op1, op2):
+    can_make = False
     if (op1.valid and op2.valid) == False:
-        return False
+        return can_make 
     for s in ["+","-", "*", "/"]:
         op3 = cal24op.Cal24op(op1, op2, s)
         if op3.valid and (op3.result == 24):
             print (op3.print_result + " = 24 \n")
-            return True
-    return False
+            can_make = True
+    return can_make
 
 def two_two (op1, op2, op3, op4):
+    ok = 0
     opllist = []
     oprlist = []
     for s in ["+","-", "*", "/"]:
@@ -23,20 +25,22 @@ def two_two (op1, op2, op3, op4):
     for opl in opllist:
         for opr in oprlist:
             if can_make_24(opl, opr):
-                return 1
-    return 0
+                ok = 1
+    return ok
 
 
 def two_two_methods (op1, op2, op3, op4):
+    ok = 0
     if two_two(op1, op2, op3, op4) == 1:
-        return 1  
+        ok = 1
     if two_two(op1, op3, op2, op4) == 1:
-        return 1  
+        ok = 1
     if two_two(op1, op4, op2, op3) == 1:
-        return 1
-    return 0
+        ok = 1
+    return ok
 
 def two_one_one (op1, op2, op3, op4):
+    ok = 0
     opllist = []
     oprlist = []
     for s in ["+","-", "*", "/"]:
@@ -50,36 +54,37 @@ def two_one_one (op1, op2, op3, op4):
             
     for opr in oprlist:
             if can_make_24(opr, op4):
-                return 1
-    return 0
+                ok = 1
+    return ok
 
 
 def two_one_one_methods (op1, op2, op3, op4):
-    if two_one_one(op1, op2, op3, op4) == 1 or \
-       two_one_one(op1, op2, op4, op3) == 1:
-        return 1  
-
-    if two_one_one(op1, op3, op2, op4) == 1 or \
-       two_one_one(op1, op3, op4, op2) == 1:
-        return 1  
-
-    if two_one_one(op1, op4, op2, op3) == 1 or \
-       two_one_one(op1, op4, op3, op2) == 1:
-        return 1
-
-    if two_one_one(op2, op3, op1, op4) == 1 or \
-       two_one_one(op2, op3, op4, op1) == 1:
-        return 1
-    
-    if two_one_one(op2, op4, op1, op3) == 1 or \
-       two_one_one(op2, op4, op3, op1) == 1:
-        return 1
-
-    if two_one_one(op3, op4, op1, op2) == 1 or \
-       two_one_one(op3, op4, op2, op1) == 1:
-        return 1
-
-    return 0
+    ok = 0
+    if two_one_one(op1, op2, op3, op4) == 1:
+        ok = 1
+    if two_one_one(op1, op2, op4, op3) == 1:
+        ok = 1
+    if two_one_one(op1, op3, op2, op4) == 1:
+        ok = 1
+    if two_one_one(op1, op3, op4, op2) == 1:
+        ok = 1  
+    if two_one_one(op1, op4, op2, op3) == 1: 
+        ok = 1
+    if two_one_one(op1, op4, op3, op2) == 1:
+        ok = 1
+    if two_one_one(op2, op3, op1, op4) == 1: 
+        ok = 1
+    if two_one_one(op2, op3, op4, op1) == 1:
+        ok = 1
+    if two_one_one(op2, op4, op1, op3) == 1:
+        ok = 1
+    if two_one_one(op2, op4, op3, op1) == 1:
+        ok = 1
+    if two_one_one(op3, op4, op1, op2) == 1:
+        ok = 1
+    if two_one_one(op3, op4, op2, op1) == 1:
+        ok = 1
+    return ok
     
 while True:
 	n1str = input("First Number: ")
@@ -96,7 +101,10 @@ while True:
 	n3o = cal24op.Cal24op(n3)
 	n4o = cal24op.Cal24op(n4)
 
-	if two_two_methods (n1o, n2o, n3o, n4o) == 0:
-    		two_one_one_methods (n1o, n2o, n3o, n4o) 
+	m1 = two_two_methods (n1o, n2o, n3o, n4o)
+    	m2 = two_one_one_methods (n1o, n2o, n3o, n4o) 
+
+	if m1 == 0 and m2 == 0:
+		print("Can not make 24!\n")
 
 
