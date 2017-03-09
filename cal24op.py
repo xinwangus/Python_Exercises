@@ -7,33 +7,40 @@ class Cal24op():
         self.r = r
         self.op = op
         self.result = 0
-        self.print_result = "(" + str(l) + ")"
+        self.print_result = " " + str(l) + " "
         self.valid = True
         self.cal()
 
     def cal(self):
-        if self.l == 0 and self.r == 0:
+        if self.l == 0:
             self.valid = False
-        elif self.l == 0:
-            self.result = self.r
-            self.print_result = "(" + str(self.r) + ")"
+        # numbers
         elif self.r == 0:
             self.result = self.l
-            self.print_result = "(" + str(self.l) + ")"
+            self.print_result = " " + str(self.l) + " "
+        # objects
         elif self.op == "+":
-             self.result = self.l.result + self.r.result
-             self.print_result = "(" + self.l.print_result + " + " + self.r.print_result + ")"
+            self.valid = self.l.valid and self.r.valid
+            if self.valid:
+                self.result = self.l.result + self.r.result
+                self.print_result = "(" + self.l.print_result + " + " + self.r.print_result + ")"
         elif self.op == "*":
-             self.result = self.l.result * self.r.result
-             self.print_result = "(" + self.l.print_result + " * " + self.r.print_result + ")"
+            self.valid = self.l.valid and self.r.valid
+            if self.valid:
+                self.result = self.l.result * self.r.result
+                self.print_result = "(" + self.l.print_result + " * " + self.r.print_result + ")"
         elif self.op == "-":
-             if self.l.result > self.r.result:
-                 self.result = self.l.result - self.r.result
-                 self.print_result = "(" + self.l.print_result + " - " + self.r.print_result + ")"
-             else:
-                 self.result = self.r.result - self.l.result
-                 self.print_result = "(" + self.r.print_result + " - " + self.l.print_result + ")"
+            self.valid = self.l.valid and self.r.valid
+            if self.valid:
+                if self.l.result > self.r.result:
+                    self.result = self.l.result - self.r.result
+                    self.print_result = "(" + self.l.print_result + " - " + self.r.print_result + ")"
+                else:
+                    self.result = self.r.result - self.l.result
+                    self.print_result = "(" + self.r.print_result + " - " + self.l.print_result + ")"
         elif self.op == "/":
+            self.valid = self.l.valid and self.r.valid
+            if self.valid:
                  if self.l.result >= self.r.result and self.r.result != 0 and self.l.result % self.r.result == 0:
                      self.result = int(self.l.result / self.r.result)
                      self.print_result = "(" + self.l.print_result + " / " + self.r.print_result + ")"
@@ -45,4 +52,3 @@ class Cal24op():
         else:
             self.valid = False
        
-
