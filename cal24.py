@@ -2,17 +2,17 @@
 import cal24op
 
 # Given 2 Cal24op objects, see if they can make out 24
-def two_two_1 (op1, op2):
+def can_make_24 (op1, op2):
     if (op1.valid and op2.valid) == False:
-        return 0
+        return False
     for s in ["+","-", "*", "/"]:
         op3 = cal24op.Cal24op(op1, op2, s)
         if op3.valid and (op3.result == 24):
             print (op3.print_result + " = 24 \n")
-            return 24
-    return 0
+            return True
+    return False
 
-def two_two_2 (op1, op2, op3, op4):
+def two_two (op1, op2, op3, op4):
     opllist = []
     oprlist = []
     for s in ["+","-", "*", "/"]:
@@ -22,17 +22,17 @@ def two_two_2 (op1, op2, op3, op4):
         oprlist.append(opr)
     for opl in opllist:
         for opr in oprlist:
-            if two_two_1(opl, opr) == 24:
+            if can_make_24(opl, opr):
                 return 1
     return 0
 
 
 def two_two_methods (op1, op2, op3, op4):
-    if two_two_2(op1, op2, op3, op4) == 1:
+    if two_two(op1, op2, op3, op4) == 1:
         return 1  
-    if two_two_2(op1, op3, op2, op4) == 1:
+    if two_two(op1, op3, op2, op4) == 1:
         return 1  
-    if two_two_2(op1, op4, op2, op3) == 1:
+    if two_two(op1, op4, op2, op3) == 1:
         return 1
     return 0
 
@@ -49,7 +49,7 @@ def two_one_one (op1, op2, op3, op4):
             oprlist.append(opr)
             
     for opr in oprlist:
-            if two_two_1(opr, op4) == 24:
+            if can_make_24(opr, op4):
                 return 1
     return 0
 
