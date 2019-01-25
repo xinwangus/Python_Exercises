@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# # Name-Value to CSV
 # This is to transform the sparse/raw data in the format of 
 #    Name Value
 # to CSV format.
@@ -13,19 +14,19 @@
 get_ipython().system('ls -al data')
 
 
-# In[39]:
+# In[5]:
 
 
 get_ipython().system('cat data/type_one_linux_1 ')
 
 
-# In[40]:
+# In[6]:
 
 
 get_ipython().system('cat data/type_two_linux_1')
 
 
-# In[41]:
+# In[7]:
 
 
 import csv
@@ -33,6 +34,7 @@ import logging
 import os
 
 logging.basicConfig(level=logging.DEBUG,                    format='%(asctime)s - %(levelname)s - %(message)s')
+logging.disable(logging.DEBUG)
 
 def decide_type(file_name):
     if file_name.find('one') != -1:
@@ -69,7 +71,12 @@ def build_row(file_name):
     
 logging.debug('Start of program')    
 with open('data.csv', 'w', newline='') as csvfile:
-    fields = ['type',              'A', 'B', 'C', 'D', 'E','F','G',               'H', 'I', 'J', 'K', 'L', 'M', 'N',               'O', 'P', 'Q', 'R', 'S', 'T',               'U', 'V', 'W', 'X', 'Y', 'Z']
+#    fields = ['type',\
+#              'A', 'B', 'C', 'D', 'E','F','G', \
+#              'H', 'I', 'J', 'K', 'L', 'M', 'N', \
+#             'O', 'P', 'Q', 'R', 'S', 'T', \
+#              'U', 'V', 'W', 'X', 'Y', 'Z']
+    fields = ['type',              'A', 'B', 'C', 'D']
     dic_writer = csv.DictWriter(csvfile, fieldnames=fields)
     dic_writer.writeheader()
     for filename in os.listdir('data'):
@@ -79,8 +86,39 @@ with open('data.csv', 'w', newline='') as csvfile:
 logging.debug('End of program')  
 
 
-# In[36]:
+# In[8]:
 
 
 get_ipython().system('cat ./data.csv')
+
+
+# # Play with Seaborn and Pandas
+
+# In[55]:
+
+
+get_ipython().run_line_magic('matplotlib', 'inline')
+
+
+# In[11]:
+
+
+import seaborn as sns
+import pandas as pd
+
+sns.set()
+
+data_csv = pd.read_csv('data.csv')
+#logging.debug(type(data_csv))
+
+#sns.barplot(x=data_csv.type, y= data_csv.D)
+#sns.jointplot(x="type", y="A", data=data_csv)
+
+sns.pairplot(data=data_csv, hue="type")
+
+
+# In[ ]:
+
+
+
 
