@@ -18,11 +18,9 @@ def checkPrime(n):
 		print(str(n) + " is -not- a Prime Number!")
 		
 
-for i in range(0, 100):
-	checkPrime(i)
-
-
-while True:
-	n = int(input("\n\nNumber to check?: "))
-	checkPrime(n)
-
+if __name__ == '__main__':
+	for i in range(0, 100):
+		checkPrime(i)
+	while True:
+		n = int(input("\n\nNumber to check?: "))
+		checkPrime(n)

@@ -30,7 +30,7 @@ def wc_fn(file):
     except IOError:
         print("File \"" + file + "\" not found!")
 
-# debug will stop here first
-set_trace()
-
-wc_fn("wc.py")
+if __name__ == '__main__':
+    # debug will stop here first
+    set_trace()
+    wc_fn("wc.py")
