@@ -2,34 +2,28 @@
 
 # A test program to check if a string containing
 # [] {} () are properly closed, and no interlace
-
 # Very similiar to the C++ version I wrote, but use
 # python list to simulate a "stack"
+
 def isClosed (s):
 	i = 0
-	l = len(s)
 	nextToClose = []
-    
-	while i < l:
-		if s[i] == '{' or s[i] == '(' or s[i] == '[' :
+	my_dict = {'[':']', '{':'}', '(':')'}
+	left_b = my_dict.keys()
+	right_b = my_dict.values()
+	while i < len(s):
+		if s[i] in left_b:
 			nextToClose.append(s[i])
-		elif s[i] == ']':
-			if (len(nextToClose) == 0) or (nextToClose[-1] != '['):
+		elif s[i] in right_b:
+			# List already empty
+			if (len(nextToClose) == 0):
+				return False
+			# close does not match open
+			elif (s[i] != my_dict[nextToClose[-1]]):
 				return False
 			else:   
-				nextToClose.pop()
-		elif s[i] == '}':
-			if (len(nextToClose) == 0) or (nextToClose[-1] != '{'):
-				return False
-			else:   
-				nextToClose.pop()
-		elif s[i] == ')':
-			if (len(nextToClose) == 0) or (nextToClose[-1] != '('):
-				return False
-			else:   
-				nextToClose.pop()		
-		i = i + 1
-		
+				nextToClose.pop()	
+		i = i + 1		
 	if len(nextToClose) != 0:
 		return False
 	else:
