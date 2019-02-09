@@ -1,7 +1,6 @@
 """ Xin's own Python Library code, Utilities"""
-
 '''
-CopyRight @Xin Wang
+Copyright @Xin Wang
 '''
 
 def copyFile(ff, tf):
