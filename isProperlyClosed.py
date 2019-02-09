@@ -6,24 +6,24 @@
 # python list to simulate a "stack"
 
 def isClosed (s):
-	i = 0
 	nextToClose = []
 	my_dict = {'[':']', '{':'}', '(':')'}
 	left_b = my_dict.keys()
 	right_b = my_dict.values()
-	while i < len(s):
-		if s[i] in left_b:
-			nextToClose.append(s[i])
-		elif s[i] in right_b:
+	for c in s:
+		if c in left_b:
+			nextToClose.append(c)
+		elif c in right_b:
 			# List already empty
 			if (len(nextToClose) == 0):
 				return False
+			else:
+				assert nextToClose[-1] in left_b
 			# close does not match open
-			elif (s[i] != my_dict[nextToClose[-1]]):
+			if (c != my_dict[nextToClose[-1]]):
 				return False
 			else:   
 				nextToClose.pop()	
-		i = i + 1		
 	if len(nextToClose) != 0:
 		return False
 	else:
