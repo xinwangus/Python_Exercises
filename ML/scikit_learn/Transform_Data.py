@@ -8,32 +8,13 @@
 # 
 # Each raw data file contains data for just one row in the CSV file.
 
-# In[76]:
-
-
-get_ipython().system('ls -al data')
-
-
-# In[77]:
-
-
-get_ipython().system('cat data/type_one_linux_1 ')
-
-
-# In[78]:
-
-
-get_ipython().system('cat data/type_two_linux_1')
-
-
-# In[79]:
-
-
 import csv
 import logging
 import os
 
-logging.basicConfig(level=logging.DEBUG,                    format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.DEBUG,\
+                    format='%(asctime)s - %(levelname)s - %(message)s')
+# If want:
 #logging.disable(logging.DEBUG)
 
 def decide_type(file_name):
@@ -65,42 +46,22 @@ def build_row(file_name):
         sum_v += value
     # adding order does not matter
     for key, value in dic_row_raw.items():
-        dic_row[key] = int(value*100/sum_v)     
+        dic_row[key] = round(value*100/sum_v)     
     logging.debug(dic_row)
     return dic_row
     
-logging.debug('Start of program')    
-with open('data.csv', 'w', newline='') as csvfile:
-#    fields = ['type',\
-#              'A', 'B', 'C', 'D', 'E','F','G', \
-#              'H', 'I', 'J', 'K', 'L', 'M', 'N', \
-#             'O', 'P', 'Q', 'R', 'S', 'T', \
-#              'U', 'V', 'W', 'X', 'Y', 'Z']
-    fields = ['type',              'A', 'B', 'C', 'D']
-    dic_writer = csv.DictWriter(csvfile, fieldnames=fields)
-    dic_writer.writeheader()
-    for filename in os.listdir('data'):
-        # dictionary writer is very nice to write
-        # the values at the correct CSV spots
-        dic_writer.writerow(build_row('data/' + filename)) 
-logging.debug('End of program')  
+if __name__ == '__main__':
+    logging.debug('Start of program')    
+    with open('data.csv', 'w', newline='') as csvfile:
+        fields = ['type','A', 'B', 'C', 'D']
+        dic_writer = csv.DictWriter(csvfile, fieldnames=fields)
+        dic_writer.writeheader()
+        for filename in os.listdir('data'):
+            # dictionary writer is very nice to write
+            # the values at the correct CSV spots
+            dic_writer.writerow(build_row('data/' + filename)) 
+    logging.debug('End of program')  
 
-
-# In[80]:
-
-
-get_ipython().system('cat ./data.csv')
-
-
-# # Play with Seaborn and Pandas
-
-# In[81]:
-
-
-get_ipython().run_line_magic('matplotlib', 'inline')
-
-
-# In[82]:
 
 
 import seaborn as sns
