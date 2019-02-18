@@ -10,7 +10,7 @@ def isPrime(n):
     elif (n == 2):
         return True
     else: #n >= 3
-        for b in range(2, (n-1)):
+        for b in range(2, (int(n/2) + 1)):
             if (n % b == 0):
                 return False
     return True
