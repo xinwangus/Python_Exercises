@@ -46,62 +46,62 @@ Stream of data!!!
 import math
 class welford :
     # num of elements seen so far.
-    k= 0
+    count = 0
     # mean so far
-    m= 0.0
+    m = 0.0
     # last(previous) mean
-    m_last= 0.0
+    m_last = 0.0
     # current sumary of variance
-    s= 0.0
+    s = 0.0
     # last(previous) summary of variance
-    s_last= 0.0
+    s_last = 0.0
  
-    def push(self, x):
-        if(self.k == 0):
-            self.m_last= x
-            self.s_last= 0.0
+    def ingest(self, x):
+        if(self.count == 0):
+            self.m_last = x
+            self.s_last = 0.0
         else:
-            self.m_last= self.m
-            self.s_last= self.s
-        self.k += 1
-        self.m= self.m_last + (x - self.m_last)/self.k
+            self.m_last = self.m
+            self.s_last = self.s
+        self.count += 1
+        self.m = self.m_last + (x - self.m_last)/self.count
         '''
-        This is the magic !!!
+        This is the magic !!! See
         https://alessior.wordpress.com/2017/10/09/onlinerecursive-variance-calculation-welfords-method/
         '''
-        self.s= self.s_last + (x - self.m_last) * (x - self.m)
+        self.s = self.s_last + (x - self.m_last) * (x - self.m)
  
     def mean(self):
         return self.m
  
     def var(self):
-        if (self.k < 2):
+        if (self.count < 2):
             return 0
         else:
-            return self.s/(self.k-1)
+            return self.s/(self.count - 1)
  
     def stdev(self):
         return math.sqrt(self.var())
     
     def pvar(self):
-        if (self.k < 1):
+        if (self.count < 1):
             return 0
         else:
-            return self.s/(self.k)
+            return self.s/(self.count)
  
     def pstdev(self):
         return math.sqrt(self.pvar())
  
 def welford_stats(l):
     print('\n' + ">>> Results with Welford method:")
-    t = welford()
+    my_class = welford()
     for value in l:
-        t.push(value)
-    print("Mean = " + str(t.mean()))
-    print("pvariance = " + str(t.pvar()))
-    print("pstdev = " + str(t.pstdev()))
-    print("variance = " + str(t.var()))
-    print("stdev = " + str(t.stdev()))   
+        my_class.ingest(value)
+    print("Mean = " + str(my_class.mean()))
+    print("pvariance = " + str(my_class.pvar()))
+    print("pstdev = " + str(my_class.pstdev()))
+    print("variance = " + str(my_class.var()))
+    print("stdev = " + str(my_class.stdev()))   
 
 if __name__ == '__main__':
     sl = [1, 2, 3, 4, 5, 5]
